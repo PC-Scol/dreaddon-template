@@ -67,7 +67,7 @@ L'importation des schémas DRE se fait de cette manière:
 
 Pour chaque addon, les scripts SQL sont lancés depuis les répertoires suivants:
 
-* les scripts du répertoire `Aprepare` sont lancés après que tous les schémas
+* les scripts du répertoire `prepare` sont lancés après que tous les schémas
   livrés par DRE ont été importés. Après ces scripts, si ce n'est pas déjà le
   cas, les schémas mentionnés dans la variable `SCHEMAS` de `dreaddon.conf` sont
   créés.
@@ -85,10 +85,13 @@ Pour chaque addon, les scripts SQL sont lancés depuis les répertoires suivants
   utilisé par toutes les versions de DRE égales ou supérieures à `MM`, jusqu'à
   ce qu'une version spécifique soit livrée.
 * l'accès à toutes les tables des schémas est donné à l'utilisateur `reader`
-  configuré dans dremgr. puis les scripts du répertoire `Zfinalize` sont lancés.
+  configuré dans dremgr. puis les scripts du répertoire `updates` sont lancés.
 
 Cette section parle de scripts SQL, mais en réalité, les fichiers `*.sql` et
 `*.sh` (s'ils sont exécutables) sont considérés
+
+Comme l'environnement est configuré comme il se doit par dremgr, les scripts
+`*.sh` peuvent lancer directement psql pour attaquer la base de données. 
 
 ## Documentation
 

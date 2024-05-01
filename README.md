@@ -30,6 +30,17 @@ https://compte:motdepasse@gitprive.univ.fr/addonprive.git
 Cet addon sera mis à jour depuis le dépôt et importé chaque jour à la date
 prévue.
 
+Si une ligne commence par `#`, elle est ignorée, ce qui permet de rajouter des
+commentaire dans la liste des addons, e.g:
+~~~sh
+ADDON_URLS="
+...
+# décommenter la ligne suivante pour activer l'addon
+#https://github.com/PC-Scol/addonpublic.git
+...
+"
+~~~
+
 ## Configuration
 
 la configuration de l'addon se fait dans le fichier `dreaddon.conf`, qui est
@@ -104,6 +115,13 @@ disposition du frontal de dremgr
 
 Cela permet de fournir aux utilisateurs la version la plus à jour correspondant
 à la base DRE installée
+
+Les fichiers `.url` sont traités de façon particulière: si c'est un fichier JSON
+avec le schéma suivant, alors le lien avec la description spécifiée est ajouté
+dans la documentation.
+~~~json
+{"url": "https://monsite.fr/madoc", "title": "Lien vers madoc"}
+~~~
 
 ## Exploitation
 

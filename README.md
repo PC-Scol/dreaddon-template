@@ -12,12 +12,14 @@ configuration:
 ~~~sh
 ADDON_URLS="
 ...
-https://github.com/PC-Scol/addonpublic.git
+PC-Scol/addonpublic.git
 ...
 "
 ~~~
+NB: le préfixe `https://github.com/` est rajouté automatiquement. On peut aussi
+utiliser un serveur privé ou un autre serveur public.
 
-Si c'est un addon privé, il faudra sans doute rajouter le compte et le mot de
+Si c'est un addon privé, il faudra peut-être rajouter le compte et le mot de
 passe pour l'accès dans l'url:
 ~~~sh
 ADDON_URLS="
@@ -36,8 +38,24 @@ commentaire dans la liste des addons, e.g:
 ADDON_URLS="
 ...
 # décommenter la ligne suivante pour activer l'addon
-#https://github.com/PC-Scol/addonpublic.git
+#PC-Scol/addonpublic.git
 ...
+"
+~~~
+
+Par défaut, la branche `master` du dépôt est attaquée. Il est possible de
+sélectionner une autre branche avec le suffixe `#branch` e.g
+~~~sh
+ADDON_URLS="
+PC-Scol/dreaddon-pilotage.git#develop
+"
+~~~
+
+Il est possible aussi de désigner un tag ou un commit précis avec le suffixe
+`^commitId` e.g
+~~~sh
+ADDON_URLS="
+PC-Scol/dreaddon-pilotage.git^cff8bfbefdd19a746a4b729c958f366e6274cff0
 "
 ~~~
 

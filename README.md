@@ -31,6 +31,18 @@ https://compte:motdepasse@gitprive.univ.fr/addonprive.git
 ~~~
 
 Cet addon sera mis à jour depuis le dépôt et importé chaque jour à l'heure
-configurée, c'est à dire 5h45 par défaut.
+configurée, c'est à dire 4h00 par défaut.
+
+## Exécution
+
+Pour rappel, le fichier `dreaddon.conf` permet de désigner les schémas à créer
+ainsi que le mode de compatibilité.
+
+Les fichiers sql ainsi que les scripts exécutables des répertoires `prepare`,
+`vMM` et `updates` sont lancés pour mettre à jour la base de données
+
+Les scripts du répertoire `notifications` sont lancés à la fin de l'import,
+qu'il aie réussi ou non. Ils peuvent servir à envoyer des mails de rapport, à
+notifier un service que les données ont été mises à jour, etc.
 
 -*- coding: utf-8 mode: markdown -*- vim:sw=4:sts=4:et:ai:si:sta:fenc=utf-8:noeol:binary

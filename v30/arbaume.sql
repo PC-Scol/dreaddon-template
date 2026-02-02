@@ -93,7 +93,7 @@ union
   , c.temoin_inscription_administrative_active temoin_pia_actif
   , case
     when cte.chemin_pia is not null then cte.chemin_pia
-    when c.temoin_inscription_administrative then o.code::varchar
+    when c.temoin_inscription_administrative then cte.chemin || '>' || o.code
     else null
     end chemin_pia
   -- toutes les colonnes de la table objet_maquette

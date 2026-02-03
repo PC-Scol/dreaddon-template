@@ -17,13 +17,14 @@ with recursive cte as (
   select
     0 niveau
   , e.code code_periode
-  , c.temoin_valide
-  , c.temoin_inscription_administrative temoin_pia
-  , c.temoin_inscription_administrative_active temoin_pia_actif
+  , o.code code_formation
   , case
-    when c.temoin_inscription_administrative then o.code::varchar
+    when c.temoin_inscription_administrative then o.code
     else null
-    end chemin_pia
+    end code_pia
+  , null::varchar code_parent
+  , c.temoin_valide
+  , o.code::varchar chemin
   -- toutes les colonnes de la table objet_maquette
   , o.type_objet_maquette
   , o.id
@@ -74,7 +75,13 @@ with recursive cte as (
   , o.numero_fresq_niveau_2
   , o.code_diplome_intermediaire_sise
   -- informations supplémentaires
-  , o.code::varchar chemin
+  , c.temoin_inscription_administrative temoin_pia
+  , c.temoin_inscription_administrative_active temoin_pia_actif
+  , case
+    when c.temoin_inscription_administrative then o.code::varchar
+    else null
+    end chemin_pia
+  , null::varchar chemin_parent
   , c.chemin ctx_chemin
 
   from schema_odf.objet_maquette o
@@ -88,14 +95,15 @@ union
   select
     (cte.niveau + 1) niveau
   , e.code code_periode
-  , c.temoin_valide
-  , c.temoin_inscription_administrative temoin_pia
-  , c.temoin_inscription_administrative_active temoin_pia_actif
+  , cte.code_formation
   , case
-    when cte.chemin_pia is not null then cte.chemin_pia
-    when c.temoin_inscription_administrative then cte.chemin || '>' || o.code
+    when cte.code_pia is not null then cte.code_pia
+    when c.temoin_inscription_administrative then o.code
     else null
-    end chemin_pia
+    end code_pia
+  , cte.code code_parent
+  , c.temoin_valide
+  , (cte.chemin || '>' || o.code) chemin
   -- toutes les colonnes de la table objet_maquette
   , o.type_objet_maquette
   , o.id
@@ -146,7 +154,14 @@ union
   , o.numero_fresq_niveau_2
   , o.code_diplome_intermediaire_sise
   -- informations supplémentaires
-  , (cte.chemin || '>' || o.code) chemin
+  , c.temoin_inscription_administrative temoin_pia
+  , c.temoin_inscription_administrative_active temoin_pia_actif
+  , case
+    when cte.chemin_pia is not null then cte.chemin_pia
+    when c.temoin_inscription_administrative then cte.chemin || '>' || o.code
+    else null
+    end chemin_pia
+  , cte.chemin chemin_parent
   , c.chemin ctx_chemin
 
   from schema_odf.objet_maquette o
